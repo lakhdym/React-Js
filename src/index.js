@@ -4,11 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-
-const name = 'Clarisse Agbegnenou';
-const element = <h1>Bonjour, {name}</h1>;
 ReactDOM.render(
-  element,
+  <App/>,
   document.getElementById('root')
 );
 
