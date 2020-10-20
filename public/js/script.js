@@ -16,23 +16,8 @@ window.addEventListener("load", () => {
   }
 
   // set red dot
-  const setNotif = () => {
-    if (checkboxCheck()){
-      // console.log('true');
-      notif.style.visibility = 'visible';
-      notif.style.opacity = '1';
-    } else {
-      // console.log('false');
-      notif.style.visibility = 'hidden';
-      notif.style.opacity = '0';
-    }
-  }
   
-  // check once if red dot is needed
-  setNotif();
 
-  // watch any change
-  document.addEventListener('click', setNotif);
 
 });
 
