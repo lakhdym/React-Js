@@ -46,22 +46,68 @@ class App extends Component {
 
     })
   }
-  AddPanier = (produit) => {
 
+  DeleteProduitPanier = (produit) => {
+    this.setState({panier: this.state.panier.filter(function(p) { 
+      return p !== produit 
+  })});
+  }
+
+  filterIndexProduit = (produit , action)=>{
     for (let i = 0; i < this.state.panier.length; i++) {
-      console.log(this.state.panier[i].description)
       if (this.state.panier[i].id === produit.id) {
-        this.state.panier[i].qteProduit++
+        if (action == '+') {
+          this.state.panier[i].qteProduit++
+        }else if(action == '-'){
+          if (this.state.panier[i].qteProduit == 1 ) {
+            this.setState({panier: this.state.panier.filter(function(p) { 
+              return p !== produit 
+          })});
+
+          }else{
+            this.state.panier[i].qteProduit--
+
+          }
+        }
 
         this.setState(function (previousState, currentProps) {
           return {
             panier: previousState.panier
           };
         });
-        return true
+          console.log(this.state.panier.length)
+    
+        return 1
       }
     }
+  }
+// add qte produit for panier
+  AddPlusQte = (produit) => {
+    this.filterIndexProduit(produit,'+')
+  }
 
+  // supprimer qte produit for panier
+  MoinQte = (produit) => {
+
+      if (this.filterIndexProduit(produit,'-') == 1) {
+        if (this.state.panier.length == 1) {
+          this.setState({
+            qtePanier: false,
+          })
+        }
+        return true
+      } 
+      
+   
+
+  }
+
+   // add produit in panier if no exist or Add qte++
+  AddPanier = (produit) => {
+
+   if (this.filterIndexProduit(produit,'+') == 1) {
+     return true
+   } 
     this.state.panier.push({
       id: produit.id,
       description: produit.description,
@@ -69,6 +115,7 @@ class App extends Component {
       price: produit.price,
       qteProduit: 1
     })
+    
 
     this.setState({
       qtePanier: true,
@@ -83,8 +130,8 @@ class App extends Component {
           <h1>Articles</h1>
           <Search search={this.onChangeFilter} qte={this.state.qte} />
           <div className="card-cart-container">
-            <Produit AddPanier={this.AddPanier} products={this.state.startFillter === false ? this.state.products : this.state.prodactsFiltter} />
-            {this.state.qtePanier === true ? <Panier panier={this.state.panier} /> : ''}
+            <Produit AddPanier={this.AddPanier}  products={this.state.startFillter === false ? this.state.products : this.state.prodactsFiltter} />
+            {this.state.qtePanier === true ? <Panier panier={this.state.panier} AddPlusQte={this.AddPlusQte} MoinQte={this.MoinQte} DeleteProduitPanier={this.DeleteProduitPanier} /> : ''}
 
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import Produit from './Produit'
 
 const  Panier = (props) => {
 	return (
@@ -19,9 +20,9 @@ const  Panier = (props) => {
 										<div className="item-quantity">
 											<h6>quantité : {produit.qteProduit}</h6>
 											<div className="cart-icons">
-												<button><i className="fa fa-plus"></i></button>
-												<button><i className="fa fa-minus"></i></button>
-												<button><i className="fa fa-trash"></i></button>
+												<button onClick={() => props.AddPlusQte(produit)} ><i className="fa fa-plus"></i></button>
+												<button onClick={() => props.MoinQte(produit)}><i className="fa fa-minus"></i></button>
+												<button onClick={() => props.DeleteProduitPanier(produit)}><i className="fa fa-trash"></i></button>
 											</div>
 										</div>
 									</div>
