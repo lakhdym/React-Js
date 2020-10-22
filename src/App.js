@@ -28,37 +28,52 @@ class App extends Component {
   state = {
     products,
     qte: products.length,
-    prodactsFiltter:[],
-    startFillter : false,
-    panier:[],
-    qtePanier : false
+    prodactsFiltter: [],
+    startFillter: false,
+    panier: [],
+    qtePanier: false
   }
   onChangeFilter = (event) => {
-    const  prodactsFiltters = this.state.products.filter((item) => {
-     //return item.description.toUpperCase().includes(event.target.value.toUpperCase())
-     return item.description.toUpperCase().indexOf(event.target.value.toUpperCase()) > -1
+    const prodactsFiltters = this.state.products.filter((item) => {
+      //return item.description.toUpperCase().includes(event.target.value.toUpperCase())
+      return item.description.toUpperCase().indexOf(event.target.value.toUpperCase()) > -1
     });
-    
+
     this.setState({
-      prodactsFiltter : prodactsFiltters,
-      qte : prodactsFiltters.length,
-      startFillter : true,
+      prodactsFiltter: prodactsFiltters,
+      qte: prodactsFiltters.length,
+      startFillter: true,
 
     })
-    
-
   }
   AddPanier = (produit) => {
-    this.state.panier.push([
-      'id' = produit.id,
-      'description' = produit.description,
-    ])
-  //  console.log(produit)
-  
-  this.setState({
-    qtePanier : true,
 
-  })
+    for (let i = 0; i < this.state.panier.length; i++) {
+      console.log(this.state.panier[i].description)
+      if (this.state.panier[i].id === produit.id) {
+        this.state.panier[i].qteProduit++
+
+        this.setState(function (previousState, currentProps) {
+          return {
+            panier: previousState.panier
+          };
+        });
+        return true
+      }
+    }
+
+    this.state.panier.push({
+      id: produit.id,
+      description: produit.description,
+      img: produit.img,
+      price: produit.price,
+      qteProduit: 1
+    })
+
+    this.setState({
+      qtePanier: true,
+
+    })
   }
   render() {
     return (
@@ -67,13 +82,13 @@ class App extends Component {
         <div className="home-container">
           <h1>Articles</h1>
           <Search search={this.onChangeFilter} qte={this.state.qte} />
-          <div className="card-cart-container">      				
-                <Produit AddPanier={this.AddPanier} products={ this.state.startFillter === false ?  this.state.products : this.state.prodactsFiltter }  />
-              {this.state.qtePanier === true ? <Panier  panier={this.state.panier}/> : ''}
-                
+          <div className="card-cart-container">
+            <Produit AddPanier={this.AddPanier} products={this.state.startFillter === false ? this.state.products : this.state.prodactsFiltter} />
+            {this.state.qtePanier === true ? <Panier panier={this.state.panier} /> : ''}
+
           </div>
         </div>
-      </div> 
+      </div>
     )
   }
 }

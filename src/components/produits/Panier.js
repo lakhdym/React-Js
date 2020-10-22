@@ -11,13 +11,13 @@ const  Panier = (props) => {
 									<div  key={index} className="item-group">
 									<div className="item">
 										<div className="img-container">
-											<img src={produit.img} />
+											<img src={produit.img} alt=""/>
 										</div>
 										<div className="item-description">
 											<h4>{produit.description}</h4> <p>{produit.price}€</p>
 										</div>
 										<div className="item-quantity">
-											<h6>quantité : 1</h6>
+											<h6>quantité : {produit.qteProduit}</h6>
 											<div className="cart-icons">
 												<button><i className="fa fa-plus"></i></button>
 												<button><i className="fa fa-minus"></i></button>
