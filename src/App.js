@@ -21,9 +21,6 @@ const products = [
   { id: 12, description: 'Mesh Genova', price: 6, img: '/img/mesh-genova.JPG' },
 ];
 
-
-
-
 class App extends Component {
   state = {
     products,
@@ -31,7 +28,8 @@ class App extends Component {
     prodactsFiltter: [],
     startFillter: false,
     panier: [],
-    qtePanier: false
+    qtePanier: false,
+    total: 0
   }
   onChangeFilter = (event) => {
     const prodactsFiltters = this.state.products.filter((item) => {
@@ -48,66 +46,89 @@ class App extends Component {
   }
 
   DeleteProduitPanier = (produit) => {
-    this.setState({panier: this.state.panier.filter(function(p) { 
-      return p !== produit 
-  })});
+   
+         this.setState({total : this.state.total - (produit.qteProduit * produit.price ) })
+    
+    this.setState({
+      panier: this.state.panier.filter(function (p) {
+        return p !== produit
+      })
+    });
   }
 
-  filterIndexProduit = (produit , action)=>{
+  filterIndexProduit = (produit, action) => {
     for (let i = 0; i < this.state.panier.length; i++) {
-      if (this.state.panier[i].id === produit.id) {
-        if (action == '+') {
-          this.state.panier[i].qteProduit++
-        }else if(action == '-'){
-          if (this.state.panier[i].qteProduit == 1 ) {
-            this.setState({panier: this.state.panier.filter(function(p) { 
-              return p !== produit 
-          })});
+      if (this.state.panier[i].id ===produit.id) {
+        if (action ==='+') { 
+          
+          this.setState(function (previousState) {
+            previousState.panier[i].qteProduit++
+            previousState.total += this.state.panier[i].price
+            return {
+              panier: previousState.panier,
+              total : previousState.total
+            }
+          });
+          
+         
+        } else if (action ==='-') {
 
-          }else{
-            this.state.panier[i].qteProduit--
+          if (this.state.panier[i].qteProduit === 1) {
+            this.setState({
+              panier: this.state.panier.filter(function (p) {
+                return p !== produit
+              })
+            });
+
+          } else {
+            this.setState(function (previousState) {
+              previousState.panier[i].qteProduit--
+              return {
+                panier: previousState.panier,
+
+              }
+            });
 
           }
+          // mise a jour total
+            this.setState(function (previousState) {
+              previousState.total -= this.state.panier[i].price
+              return {
+                total: previousState.total,
+
+              }
+            });
         }
 
-        this.setState(function (previousState, currentProps) {
-          return {
-            panier: previousState.panier
-          };
-        });
-          console.log(this.state.panier.length)
-    
         return 1
       }
     }
+    return 0
   }
-// add qte produit for panier
+  // add qte produit for panier
   AddPlusQte = (produit) => {
-    this.filterIndexProduit(produit,'+')
+    this.filterIndexProduit(produit, '+')
   }
 
   // supprimer qte produit for panier
   MoinQte = (produit) => {
-
-      if (this.filterIndexProduit(produit,'-') == 1) {
-        if (this.state.panier.length == 1) {
-          this.setState({
-            qtePanier: false,
-          })
-        }
-        return true
-      } 
-      
-   
-
+    if (this.filterIndexProduit(produit, '-') === 1) {
+      if (this.state.panier.length === 0) {
+        this.setState({
+          qtePanier: false,
+        })
+      }
+      return true
+    }
   }
 
-   // add produit in panier if no exist or Add qte++
+  // add produit in panier if no exist or Add qte++
   AddPanier = (produit) => {
 
-   if (this.filterIndexProduit(produit,'+') == 1) {
-     return true
-   } 
+    if (this.filterIndexProduit(produit, '+') ===1) {
+      return true
+    }
+    
     this.state.panier.push({
       id: produit.id,
       description: produit.description,
@@ -115,8 +136,15 @@ class App extends Component {
       price: produit.price,
       qteProduit: 1
     })
-    
+        // mise a jour total
+       
+        this.setState(function (previousState) {
+          previousState.total += produit.price
+          return {
+            total: previousState.total,
 
+          }
+        });
     this.setState({
       qtePanier: true,
 
@@ -127,11 +155,17 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <div className="home-container">
-          <h1>Articles</h1>
+          <h1>Articles </h1>
           <Search search={this.onChangeFilter} qte={this.state.qte} />
           <div className="card-cart-container">
-            <Produit AddPanier={this.AddPanier}  products={this.state.startFillter === false ? this.state.products : this.state.prodactsFiltter} />
-            {this.state.qtePanier === true ? <Panier panier={this.state.panier} AddPlusQte={this.AddPlusQte} MoinQte={this.MoinQte} DeleteProduitPanier={this.DeleteProduitPanier} /> : ''}
+            <Produit AddPanier={this.AddPanier} products={this.state.startFillter === false ? this.state.products : this.state.prodactsFiltter} />
+
+            <Panier
+              panier={this.state.panier}
+              AddPlusQte={this.AddPlusQte}
+              MoinQte={this.MoinQte}
+              DeleteProduitPanier={this.DeleteProduitPanier}
+              Total={this.state.total} />
 
           </div>
         </div>
