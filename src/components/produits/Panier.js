@@ -15,7 +15,7 @@ const Panier = (props) => {
 								<div key={index} className="item-group">
 									<div className="item">
 										<div className="img-container">
-											<img src={produit.img} alt="" />
+											<img src={"img/" + produit.img} alt={produit.description} />
 										</div>
 										<div className="item-description">
 											<h4>{produit.description}</h4> <p>{produit.price}€</p>
@@ -26,6 +26,7 @@ const Panier = (props) => {
 												<button onClick={() => props.AddPlusQte(produit)} ><i className="fa fa-plus"></i></button>
 												<button onClick={() => props.MoinQte(produit)}><i className="fa fa-minus"></i></button>
 												<button onClick={() => props.DeleteProduitPanier(produit)}><i className="fa fa-trash"></i></button>
+												
 											</div>
 										</div>
 									</div>

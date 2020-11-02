@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-//import Contact from './components/contact/Contact';
-import NavBar from './components/header/NavBar';
-import './App.css';
-import Produit from './components/produits/Produit';
-import Search from './components/header/Search'
-import Panier from './components/produits/Panier';
+//import Contact from './contact/Contact';
+import NavBar from './header/NavBar';
+
+import Produit from './produits/Produit';
+import Search from './header/Search'
+import Panier from './produits/Panier';
 import Axios from 'axios';
-import { BrowserRouter } from 'react-router-dom';
-import Router from './router';
+
 
 // const products = [
 //   { id: 1, description: "Quarz Luxe", price: 12, img: '/img/quarz-luxe.JPG' },
@@ -24,7 +23,7 @@ import Router from './router';
 //   { id: 12, description: 'Mesh Genova', price: 6, img: '/img/mesh-genova.JPG' },
 // ];
 
-class App extends Component {
+class Home extends Component {
   state = {
     products: [],
     qte: 0,
@@ -189,9 +188,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter>
-          <Router/>
-        </BrowserRouter>
+ 
         <NavBar />
         <div className="home-container">
           <h1>Articles </h1>
@@ -213,4 +210,4 @@ class App extends Component {
     )
   }
 }
-export default App;
+export default Home;

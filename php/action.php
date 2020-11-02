@@ -2,6 +2,10 @@
 
 //action.php
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers: Origin, Content-Type, Accept,Authorization, X-Request-With');
+
 $connect = new PDO("mysql:host=localhost;dbname=vue_db", "root", "");
 $received_data = json_decode(file_get_contents("php://input"));
 $data = array();

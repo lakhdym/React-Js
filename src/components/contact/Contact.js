@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import NavBar from '../header/NavBar';
 
  class Contact extends Component {
 	
@@ -7,11 +8,8 @@ import PropTypes from 'prop-types'
 		const {titre,name , tel} = this.props;
 		return (
 			<div>
-				<h1>{titre}</h1>
-				<ul>
-					<li>Nom : {name}</li>
-					<li>tel : {tel}</li>
-				</ul>
+				<NavBar/>
+				
 			</div>
 		)
 	}

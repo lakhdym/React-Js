@@ -8,7 +8,7 @@ const Produit = (props) => {
 						return (
 							<div key={produit.id} className="card">
 								<div className="img-container">
-									<img src={produit.img}  alt=""/>
+									<img src={"img/" + produit.img }  alt=""/>
 								</div>
 								<div className="card-text">
 									<h3>{produit.description}</h3>
