@@ -14,7 +14,7 @@ const NavBar = (props) => {
 					</Link>
 				</div>
 				<ul id="icons">
-					{/* <li>
+					 <li>
 						<Link to='/user'>
 							<i className="fas fa-user"></i>
 						</Link>
@@ -29,7 +29,7 @@ const NavBar = (props) => {
 						<Link to='/cart'>
 							<i className="fas fa-shopping-cart"></i>
 						</Link>
-					</li>*/}
+					</li>
 					<li>
 						<Link to='/contact'>
 							<i className="fas fa-address-card"></i>
