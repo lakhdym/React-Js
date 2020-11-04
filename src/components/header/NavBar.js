@@ -6,7 +6,7 @@ const NavBar = (props) => {
 	//	const {txt} = props ;
 	return (
 		<nav>
-			<div className="nav-container">
+			<div className="nav-container ">
 
 				<div id="logo">
 					<Link to='/'>
@@ -14,7 +14,7 @@ const NavBar = (props) => {
 					</Link>
 				</div>
 				<ul id="icons">
-					<li>
+					{/* <li>
 						<Link to='/user'>
 							<i className="fas fa-user"></i>
 						</Link>
@@ -24,10 +24,15 @@ const NavBar = (props) => {
 							<i className="fas fa-heart"></i>
 							<span id="nav-not"></span>
 						</Link>
-					</li>
+					</li> 
+					<li>
+						<Link to='/cart'>
+							<i className="fas fa-shopping-cart"></i>
+						</Link>
+					</li>*/}
 					<li>
 						<Link to='/contact'>
-							<i className="fas fa-shopping-cart"></i>
+							<i className="fas fa-address-card"></i>
 						</Link>
 					</li>
 

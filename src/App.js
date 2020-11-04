@@ -166,10 +166,11 @@ class App extends Component {
     }
 
     this.state.panier.push({
-      id: produit.id,
+      ...produit ,
+     /* id: produit.id,
       description: produit.description,
       img: produit.img,
-      price: parseInt(produit.price),
+      price: parseInt(produit.price),*/
       qteProduit: 1
     })
     // mise a jour total
